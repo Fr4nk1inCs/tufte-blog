@@ -61,7 +61,7 @@ nested = ["assets"]
 # Examples:
 # - `"assets/CNAME"` -> `/CNAME`
 # - `{ file = "icons/fav.ico", as = "favicon.ico" }` -> `/favicon.ico`
-flatten = []
+flatten = ["assets/files/resume.pdf"]
 
 # CSS processor hook (Only tailwind now)
 [build.hooks.css]
