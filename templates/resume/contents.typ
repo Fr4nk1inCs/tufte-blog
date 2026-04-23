@@ -1,4 +1,4 @@
-#import "@preview/cuti:0.3.0": show-cn-fakebold
+#import "/utils/packages.typ": cuti
 
 #let en-resume(style, entries) = [
   #show: style.with(
@@ -100,7 +100,7 @@
 ]
 
 #let zh-resume(style, entries) = [
-  #show: show-cn-fakebold
+  #show: cuti.show-cn-fakebold
   #show: style.with(
     name: "傅申",
     contact-infos: (

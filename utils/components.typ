@@ -1,5 +1,4 @@
-
-#import "/utils/packages.typ": tufted
+#import "/utils/packages.typ": fontawesome, tufted
 #import "/utils/tola.typ": parse-date
 
 #let subtitle(body) = {
@@ -40,4 +39,12 @@
 
   emph(post.summary)
   margin-note(post.tags.map(it => raw(block: false, "#" + it)).join(delimiter))
+}
+
+#let fa-icon(name) = {
+  html.elem(
+    "span",
+    attrs: (style: "font-family: 'Font Awesome 7 Free', 'Font Awesome 7 Brands'; font-weight: 400;"),
+    fontawesome.fa-icon(name),
+  )
 }

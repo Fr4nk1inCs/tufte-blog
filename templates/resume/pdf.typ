@@ -1,4 +1,4 @@
-#import "@preview/fontawesome:0.6.0": fa-icon
+#import "/utils/packages.typ": fontawesome
 #import "./common.typ": contact, make-entries
 
 #let style(
@@ -32,7 +32,7 @@
     line(length: 100%, stroke: 1pt + text.fill)
   }
 
-  let contact-contents = contact(infos: contact-infos, fa-icon: fa-icon)
+  let contact-contents = contact(infos: contact-infos, fa-icon: fontawesome.fa-icon)
 
   align(center, {
     title(name)
