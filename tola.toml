@@ -35,7 +35,11 @@ no_fouc = true
 # Favicon path (relative to site root).
 icon = "assets/favicon/favicon.ico"
 # CSS stylesheet paths (relative to site root).
-styles = ["assets/styles/tufted.css", "assets/styles/code-block.css"]
+styles = [
+  "assets/styles/tufted.css",
+  "assets/styles/code-block.css",
+  "assets/styles/fontawesome.css",
+]
 # Script entries (relative to site root).
 scripts = []
 # Raw HTML elements to insert into head.
