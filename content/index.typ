@@ -8,7 +8,7 @@
 
 I'm Fr4nk1in. I'm a second-year graduate student at #link("https://www.ustc.edu.cn")[USTC] - #link("https://adsl.ustc.edu.cn")[ADSL]. My research focuses on Artificial Intelligence Systems, with a particular interest in LLM inference and Mixture of Experts (MoE) models. Here, I’ll be sharing my thoughts, notes, and ideas.
 
-= #link("/posts")[Latest Posts]
+= Latest Posts
 
 #let posts = (
   pages()
