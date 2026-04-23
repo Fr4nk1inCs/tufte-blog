@@ -1,0 +1,43 @@
+pre > code > div.code-line {
+	direction: ltr;
+	unicode-bidi: isolate;
+	display: grid;
+	grid-template-areas: "gutter code";
+	grid-template-columns: auto 1fr;
+	position: relative;
+	padding: 0 !important;
+	margin: 0 !important;
+	width: fit-content;
+}
+
+pre > code > div.code-line.inserted {
+	background-color: rgba(46, 160, 67, 0.15);
+}
+
+pre > code > div.code-line.deleted {
+	background-color: rgba(248, 81, 73, 0.15);
+}
+
+pre > code > div.code-line.inserted::before {
+	content: "+";
+	grid-area: gutter;
+	color: #22863a;
+}
+
+pre > code > div.code-line.deleted::before {
+	content: "-";
+	grid-area: gutter;
+	color: #cb2431;
+}
+
+pre > code > div.code-line:not(.inserted):not(.deleted)::before {
+	content: "";
+	grid-area: gutter;
+	width: 1ch;
+}
+
+pre > code > div.code-line > div.code {
+	grid-area: code;
+	position: relative;
+	min-height: 1.42em;
+}
