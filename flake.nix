@@ -9,7 +9,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    tola.url = "github:tola-ssg/tola-ssg/v0.7.0";
+    tola.url = "github:tola-ssg/tola-ssg/v0.7.1";
   };
 
   outputs = inputs:

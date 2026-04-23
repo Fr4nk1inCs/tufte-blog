@@ -133,16 +133,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1772624117,
-        "narHash": "sha256-tgdVon+N4KOyu2fv72CdsjxgZr9gRtpt89DjgfgbJHI=",
+        "lastModified": 1773855057,
+        "narHash": "sha256-zgPKsIRXp5na2d0X7j5+9xJBGFSlvIKIRmzVVo/dcLk=",
         "owner": "tola-ssg",
         "repo": "tola-ssg",
-        "rev": "cb08e0ca53d561865e756911f2304a578bab3c6c",
+        "rev": "9adcff02f1b8f1682d74e039173a67869ad66ed2",
         "type": "github"
       },
       "original": {
         "owner": "tola-ssg",
-        "ref": "v0.7.0",
+        "ref": "v0.7.1",
         "repo": "tola-ssg",
         "type": "github"
       }
