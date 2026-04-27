@@ -1,5 +1,5 @@
 #import "/utils/packages.typ": tufted
-#import "/utils/components.typ": delimiter, full-width
+#import "/utils/components.typ": delimiter, fa-icon, full-width
 
 #let base(body) = {
   show: tufted.template-math
@@ -25,13 +25,28 @@
     })
     html.article(html.section(body))
 
+    let footer-style = "text-align: center; font-size: 0.9em; color: rgba(0, 0, 0, 0.6);"
+
     full-width[
+      #html.p(
+        {
+          (
+            link("https://github.com/Fr4nk1inCs", fa-icon("github")),
+            link("https://x.com/Fr4nk1inCs", fa-icon("twitter")),
+            link("mailto:sh.fu@outlook.com", fa-icon("envelope")),
+            link("/rss.xml", fa-icon("rss", solid: true)),
+          ).join(delimiter)
+        },
+        class: "social-links",
+        style: "text-align: center; font-size: 1.0em; color: rgba(0, 0, 0, 0.6);",
+      )
+
+
       #html.p(
         {
           (
             [Fr4nk1in © 2025],
             [Built with #link("https://github.com/tola-rs/tola-ssg")[Tola] & #link("https://github.com/vsheg/tufted")[Tufted]],
-            [#link("/rss.xml")[RSS]],
           ).join(delimiter)
         },
         style: "text-align: center; font-size: 1.0em; color: rgba(0, 0, 0, 0.6);",

@@ -41,10 +41,13 @@
   margin-note(post.tags.map(it => raw(block: false, "#" + it)).join(delimiter))
 }
 
-#let fa-icon(name) = {
+#let fa-icon(name, solid: false) = {
+  let weight = if solid { 900 } else { 400 }
   html.elem(
     "span",
-    attrs: (style: "font-family: 'Font Awesome 7 Free', 'Font Awesome 7 Brands'; font-weight: 400;"),
-    fontawesome.fa-icon(name),
+    attrs: (
+      style: "font-family: 'Font Awesome 7 Free', 'Font Awesome 7 Brands'; " + "font-weight: " + str(weight) + ";",
+    ),
+    fontawesome.fa-icon(name, solid: solid),
   )
 }
