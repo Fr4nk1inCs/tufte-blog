@@ -52,8 +52,9 @@
   )
 }
 
+#let INVALID_ID_PATTERN = regex("[^a-zA-Z0-9-_ ]")
 #let heading-id(text) = {
-  lower(to-string(text).replace("/", "-").replace(" ", "-"))
+  lower(to-string(text).replace(INVALID_ID_PATTERN, "").replace(" ", "-"))
 }
 
 #let heading-with-id(h) = {
