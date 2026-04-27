@@ -1,5 +1,5 @@
 #import "/utils/packages.typ": fontawesome, tufted
-#import "/utils/tola.typ": parse-date
+#import "/utils/tola.typ": parse-date, to-string
 
 #let subtitle(body) = {
   html.p(class: "subtitle", body)
@@ -50,4 +50,14 @@
     ),
     fontawesome.fa-icon(name, solid: solid),
   )
+}
+
+#let heading-id(text) = {
+  lower(to-string(text).replace("/", "-").replace(" ", "-"))
+}
+
+#let heading-with-id(h) = {
+  let id = heading-id(h.body)
+
+  html.elem("h" + str(h.level + 1), attrs: (id: id), h.body)
 }

@@ -39,14 +39,39 @@
     std.title(meta.title)
     C.subtitle(C.display-date(meta.date) + C.delimiter + str(meta.reading-minutes) + " min read")
 
-    C.margin-note[
-      Keywords: #meta.tags.map(it => raw(block: false, "#" + it)).join(C.delimiter)
-    ]
-
     if "update" in meta and meta.update != meta.date {
       C.margin-note[
         Updated on #C.display-date(meta.update)
       ]
+    }
+
+    if "tags" in meta and meta.tags.len() > 0 {
+      C.margin-note[
+        *Keywords:* #meta.tags.map(it => raw(block: false, "#" + it)).join(C.delimiter)
+      ]
+    }
+
+    if "disclaimer" in meta {
+      C.margin-note[
+        *Disclaimer:* #meta.disclaimer
+      ]
+    }
+
+    if headings.len() > 0 {
+      C.margin-note({
+        strong[Table of Contents:]
+        for h in headings {
+          if h.level > 2 { continue }
+          let id = C.heading-id(h.text)
+
+          linebreak()
+          html.a(
+            href: "#" + id,
+            style: "margin-left: " + str(h.level) + "em",
+            eval(h.text, mode: "markup"),
+          )
+        }
+      })
     }
 
     body

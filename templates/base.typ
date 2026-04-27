@@ -1,5 +1,5 @@
 #import "/utils/packages.typ": tufted
-#import "/utils/components.typ": delimiter, fa-icon, full-width
+#import "/utils/components.typ": delimiter, fa-icon, full-width, heading-with-id
 
 #let base(body) = {
   show: tufted.template-math
@@ -10,6 +10,7 @@
   show list: html.section
   show enum: html.section
   show terms: html.section
+  show heading: heading-with-id
 
   set raw(theme: "/templates/monochrome.tmTheme")
 

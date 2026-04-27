@@ -8,9 +8,8 @@
   date: datetime(year: 2025, month: 12, day: 2),
   update: datetime(year: 2026, month: 2, day: 13),
   summary: [A drop-in profiler that works seamlessly with PyTorch CUDA Graphs.],
+  disclaimer: [This post is revised by Google Gemini.],
 )
-
-#C.margin-note[This post is revised by Google Gemini.]
 
 It is common practice to profile PyTorch code using CUDA events to measure the execution time of various GPU operations. By recording a start and end event, we can calculate the precise elapsed time on the GPU.
 
@@ -480,4 +479,3 @@ When you run `execution.py`, you'll see timing information for each layer's oper
 Profiling CUDA Graphs requires shifting from "synchronize immediately" to "record now, read later." By leveraging `external=True` events and monkey-patching `CUDAGraph`, we can build a profiling tool that provides detailed insights into graph execution without disrupting the structure of existing training or inference loops.
 
 The full implementation is available at #link("https://gist.github.com/Fr4nk1inCs/9c0942fe1b1b4a26d20954f84b38be44")[GitHub Gist].
-
