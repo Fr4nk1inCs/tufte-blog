@@ -37,13 +37,15 @@
     show: base
 
     std.title(meta.title)
-    C.subtitle(C.display-date(meta.date) + C.delimiter + str(meta.reading-minutes) + " min read")
+    C.subtitle({
+      C.display-date(meta.date) + C.delimiter + str(meta.reading-minutes) + " min read"
 
-    if "update" in meta and meta.update != meta.date {
-      C.margin-note[
-        Updated on #C.display-date(meta.update)
-      ]
-    }
+      if "update" in meta and meta.update != meta.date {
+        C.margin-note[
+          Updated on #C.display-date(meta.update)
+        ]
+      }
+    })
 
     if "tags" in meta and meta.tags.len() > 0 {
       C.margin-note[
