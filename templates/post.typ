@@ -23,7 +23,7 @@
       type: "article",
       site-name: info.title,
       published: meta.date,
-      modified: meta.update,
+      modified: if "update" in meta { meta.update } else { none },
       tags: meta.tags,
     )
     if meta.title != none {
