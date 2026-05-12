@@ -36,6 +36,7 @@ no_fouc = true
 icon = "assets/favicon/favicon.ico"
 # CSS stylesheet paths (relative to site root).
 styles = [
+  "assets/styles/tufte.min.css",
   "assets/styles/tufted.css",
   "assets/styles/code-block.css",
   "assets/styles/fontawesome.css",
@@ -44,7 +45,7 @@ styles = [
 scripts = []
 # Raw HTML elements to insert into head.
 elements = [
-  '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css">',
+  '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
 ]
 
 [build.assets]
