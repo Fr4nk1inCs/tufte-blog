@@ -133,8 +133,7 @@ figure[role="math"] {
 }
 
 @media (prefers-color-scheme: dark) {
-	/* Invert math figures for better contrast */
-	[role="math"] {
+	img[src^="data:image/svg+xml;base64,"] {
 		filter: invert(1) hue-rotate(180deg);
 	}
 }
