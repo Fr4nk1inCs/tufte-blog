@@ -1,15 +1,19 @@
 #import "/templates/page.typ": page
+#import "/templates/metadata.typ": page-meta
 #import "/utils/components.typ" as C
-#import "@tola/pages:0.0.0": all-tags, by-tag
+#import "/utils/pages.typ": all-tags, by-tag
+#import "@tola/source:0.0.0": tola-meta
 
-#show: page.with(title: "Tags")
+#tola-meta(page-meta(title: "Tags"))
+
+#show: page
 
 #let tags = all-tags()
 
 #for tag in tags {
   html.h2(raw(block: false, tag), id: tag)
 
-  let posts = by-tag(tag).sorted(key: p => p.date).rev()
+  let posts = by-tag(tag).sorted(key: p => p.source.meta.date).rev()
 
   if posts.len() == 0 {
     emph[No posts with this tag yet.]

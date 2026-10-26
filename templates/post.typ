@@ -1,81 +1,55 @@
-#import "/templates/tola.typ": tola-page
-#import "/templates/base.typ": base
-#import "/utils/tola.typ": cls, og-tags, parse-date
+#import "@tola/document:0.0.0": current-document, headings
+#import "/utils/pages.typ": current-page-meta
 #import "/utils/components.typ" as C
 #import "/utils/packages.typ": wordometer
-#import "@tola/site:0.0.0": info
-#import "@tola/current:0.0.0": headings
 
-#let post = (body, ..args) => {
-  let WORD_PER_MINUTE = 200
+#let post(body) = {
+  let reading-minutes = calc.ceil(wordometer.word-count-of(body).words / 200)
 
-  let meta = args.named()
-  if "date" in meta { meta.date = parse-date(meta.date) }
-  if "update" in meta { meta.update = parse-date(meta.update) }
+  context {
+    let document = current-document()
+    let meta = current-page-meta()
 
-  let word-count = wordometer.word-count-of(body).words
-  meta.insert("reading-minutes", calc.ceil(word-count / WORD_PER_MINUTE))
-
-  let head = {
-    og-tags(
-      title: meta.title,
-      description: meta.summary,
-      type: "article",
-      site-name: info.title,
-      published: meta.date,
-      modified: if "update" in meta { meta.update } else { none },
-      tags: meta.tags,
-    )
-    if meta.title != none {
-      html.title(meta.title + " | " + info.title)
-    } else {
-      html.title(info.title)
-    }
-  }
-
-  tola-page(..meta, head: head, {
-    show: base
+    [#metadata((output: document.output, reading-minutes: reading-minutes)) <reading-time>]
 
     std.title(meta.title)
     C.subtitle({
-      C.display-date(meta.date) + C.delimiter + str(meta.reading-minutes) + " min read"
+      if meta.date != none { C.display-date(meta.date) + C.delimiter }
+      str(reading-minutes) + " min read"
 
-      if "update" in meta and meta.update != meta.date {
+      if meta.update != none and meta.update != meta.date {
         C.margin-note[
           Updated on #C.display-date(meta.update)
         ]
       }
     })
 
-    if "tags" in meta and meta.tags.len() > 0 {
+    if meta.tags.len() > 0 {
       C.margin-note[
         *Keywords:* #meta.tags.map(it => raw(block: false, "#" + it)).join(C.delimiter)
       ]
     }
 
-    if "disclaimer" in meta {
+    if meta.disclaimer != none {
       C.margin-note[
         *Disclaimer:* #meta.disclaimer
       ]
     }
 
-    if headings.len() > 0 {
+    let sections = headings(depth: 2).filter(section => section.outlined)
+    if sections.len() > 0 {
       C.margin-note({
         strong[Table of Contents:]
-        for h in headings {
-          if h.level > 2 { continue }
-          let id = C.heading-id(h.text)
-
+        for section in sections {
           linebreak()
-          html.a(
-            href: "#" + id,
-            style: "margin-left: " + str(h.level) + "em",
-            eval(h.text, mode: "markup"),
+          html.span(
+            style: "margin-left: " + str(section.level) + "em",
+            link(section.location, section.body),
           )
         }
       })
     }
+  }
 
-    body
-  })
+  html.div(id: "post-body", body)
 }

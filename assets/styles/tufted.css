@@ -25,11 +25,24 @@ svg {
 	max-height: 80vh;
 }
 
+/* The feed body wrapper retains Tufte's main text column. */
+#post-body > p,
+#post-body > table,
+#post-body > footer {
+	width: 55%;
+}
+
 /*******************************************************************************
 RESPONSIVE LAYOUT
 *******************************************************************************/
 
 @media (max-width: 760px) {
+	#post-body > p,
+	#post-body > table,
+	#post-body > footer {
+		width: 100%;
+	}
+
 	/* Display margin notes inline on narrow screens */
 	.marginnote {
 		display: block;
@@ -124,12 +137,43 @@ section[role="doc-endnotes"] {
 }
 
 /*******************************************************************************
-MATH NOTATION
+NATIVE FIGURES AND MATH
 *******************************************************************************/
 
-/* TODO: Remove hack for math zooming */
-figure[role="math"] {
-	zoom: 1.4;
+/* Keep native figcaption semantics and the Tufte margin-caption layout. */
+figure:has(> figcaption) {
+	display: grid;
+	grid-template-columns: 100% 50%;
+	column-gap: 10%;
+	align-items: start;
+}
+
+figure > img {
+	height: auto;
+}
+
+figure > figcaption {
+	grid-column: 2;
+	grid-row: 1;
+	float: none;
+	max-width: none;
+	text-align: left;
+}
+
+math {
+	color: inherit;
+}
+
+@media (max-width: 760px) {
+	figure:has(> figcaption) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	figure > figcaption {
+		grid-column: 1;
+		grid-row: auto;
+		margin-top: 1rem;
+	}
 }
 
 @media (prefers-color-scheme: dark) {

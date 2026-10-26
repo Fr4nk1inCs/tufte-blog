@@ -1,4 +1,6 @@
 /.direnv/
 /public
 /.tola/
+/.tola-build.lock
+/.public-publish/
 .DS_Store

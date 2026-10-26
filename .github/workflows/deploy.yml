@@ -23,12 +23,12 @@ jobs:
 
       - name: Install tola
         run: |
-          curl -fsSL https://github.com/tola-ssg/tola-ssg/releases/latest/download/tola-x86_64-linux-static.tar.gz | tar -xz
-          sudo mv tola /usr/local/bin/
+          curl -fsSL https://github.com/tola-ssg/tola-ssg/releases/download/v0.8.1/tola-0.8.1-x86_64-unknown-linux-musl.tar.gz | tar -xz
+          sudo install tola /usr/local/bin/tola
 
       - name: Build
         run: |
-          tola build --clean --minify --rss
+          tola build --minify
 
       - name: Display structure of built files
         run: |

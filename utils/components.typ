@@ -1,5 +1,5 @@
 #import "/utils/packages.typ": fontawesome, tufted
-#import "/utils/tola.typ": parse-date, to-string
+#import "@tola/web:0.0.0": plain-text
 
 #let subtitle(body) = {
   html.p(class: "subtitle", body)
@@ -25,20 +25,23 @@
 #let delimiter = sym.space + sym.dot + sym.space
 
 #let display-date(date) = {
-  let date = parse-date(date)
   date.display("[month repr:short] [day padding:none], [year]")
 }
 
-#let display-post(post) = {
-  let note = display-date(post.date) + delimiter + str(post.reading-minutes) + " min read"
+#let display-post(post) = context {
+  let meta = post.source.meta
+  let readings = query(<reading-time>).filter(it => it.value.output == post.output)
+  let minutes = if readings.len() > 0 { readings.first().value.reading-minutes } else { 0 }
+  let note = if meta.date != none { display-date(meta.date) + delimiter } else { [] }
+  note += str(minutes) + " min read"
 
-  link(post.permalink)[#post.title]
+  link(post.url)[#meta.title]
   margin-note(note)
 
   linebreak()
 
-  emph(post.summary)
-  margin-note(post.tags.map(it => raw(block: false, "#" + it)).join(delimiter))
+  if meta.summary != none { emph(meta.summary) }
+  margin-note(meta.tags.map(it => raw(block: false, "#" + it)).join(delimiter))
 }
 
 #let fa-icon(name, solid: false) = {
@@ -54,7 +57,7 @@
 
 #let INVALID_ID_PATTERN = regex("[^a-zA-Z0-9-_ ]")
 #let heading-id(text) = {
-  lower(to-string(text).replace(INVALID_ID_PATTERN, "").replace(" ", "-"))
+  lower(plain-text(text).replace(INVALID_ID_PATTERN, "").replace(" ", "-"))
 }
 
 #let heading-with-id(h) = {

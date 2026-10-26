@@ -23,7 +23,7 @@
     end: "Present",
   )
   - Transferred from M.S. program to Ph.D. program in 2026.
-  - GPA: 4.13/4.30 #h(2em) Advisor: Prof. #link("https://cs.ustc.edu.cn/2020/0828/c23239a615416/pagem.htm")[Cheng Li]
+  - GPA: 4.13/4.30 #("\u{2003}\u{2003}") Advisor: Prof. #link("https://cs.ustc.edu.cn/2020/0828/c23239a615416/pagem.htm")[Cheng Li]
   - Courses: Formal Languages and Complexity (100), Design and Analysis of Algorithms (98), Combinatorics (97), Advanced Computer Architecture (96)
 
   #(entries.edu)(

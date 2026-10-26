@@ -1,15 +1,19 @@
 #import "/templates/post.typ": post
+#import "/templates/metadata.typ": page-meta
 #import "/utils/code.typ": diffed
 #import "/utils/components.typ" as C
+#import "@tola/source:0.0.0": tola-meta
 
-#show: post.with(
+#tola-meta(page-meta(
   title: "Transparent Profiling for PyTorch CUDA Graphs",
   tags: ("cuda", "torch", "python"),
   date: datetime(year: 2025, month: 12, day: 2),
   update: datetime(year: 2026, month: 2, day: 13),
   summary: [A drop-in profiler that works seamlessly with PyTorch CUDA Graphs.],
   disclaimer: [This post is revised by Google Gemini.],
-)
+))
+
+#show: post
 
 It is common practice to profile PyTorch code using CUDA events to measure the execution time of various GPU operations. By recording a start and end event, we can calculate the precise elapsed time on the GPU.
 

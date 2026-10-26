@@ -1,22 +1,9 @@
-#import "/templates/tola.typ": wrap-page
-#import "/templates/base.typ": base
-#import "/utils/tola.typ": cls
-#import "@tola/site:0.0.0": info
+#import "/utils/pages.typ": current-page-meta
 
-#let page = wrap-page(
-  base: base,
-  head: m => {
-    if "title" in m {
-      html.title(m.title + " | " + info.title)
-    } else {
-      html.title(info.title)
-    }
-  },
-  view: (body, m) => {
-    if "title" in m {
-      std.title(m.title)
-    }
-
-    body
-  },
-)
+#let page(body) = {
+  context {
+    let title = current-page-meta().title
+    if title != none { std.title(title) }
+  }
+  body
+}

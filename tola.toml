@@ -1,93 +1,34 @@
-# Tola configuration file (v0.7.0)
+# Tola configuration file (v0.8.1)
 # https://github.com/tola-rs/tola-ssg
 
-# Site metadata for feed generation and Typst templates
-# Access in Typst via `#import "@tola/site:0.0.0": info`
-# For custom fields, use `[site.info.extra]` and access via `info.extra.xxx`
-[site.info]
-title = "Fr4nk1in's Blog"       # Site title
-author = "Fr4nk1in"             # Author name
-email = "sh.fu@outlook.com"     # Author email
-description = "Fr4nk1in's Blog" # Site description
-url = "https://fr4nk1in.top"    # Site URL, path used as prefix (e.g., "https://example.com/blog/docs")
-language = "en"                 # Language code (e.g., "en", "zh-Hans")
-copyright = ""                  # Copyright notice
+[site]
+title = "Fr4nk1in's Blog"
+authors = [{ name = "Fr4nk1in", email = "sh.fu@outlook.com" }]
+description = "Fr4nk1in's Blog"
+origin = "https://fr4nk1in.top"
+base-path = "/"
+language = "en"
 
-# SEO configuration containing feed, sitemap, and OG tag settings
-[site.seo]
-auto_og = true # Auto-inject OG meta tags (can be overridden in Typst)
+[build]
+entry = "site.typ"
+content-dir = "content"
+publish-dir = "public"
 
-# Feed generation settings (RSS/Atom)
-[site.seo.feed]
-enable = true     # Enable feed generation
-path = "feed.xml" # Output path for feed file
-format = "rss"    # Feed format: rss | atom
+[build.references]
+navigation = "error"
+resources = "error"
+fragments = "error"
 
-# Sitemap generation settings
-[site.seo.sitemap]
-enable = true        # Enable sitemap generation
-path = "sitemap.xml" # Output path for sitemap file
+[assets]
+trees = [{ source = "assets", url-prefix = "/assets" }]
+files = [{ source = "assets/files/resume.pdf", url = "/resume.pdf" }]
 
-[site.header]
-# Inject a dummy script to prevent FOUC (Flash of Unstyled Content).
-# The script blocks rendering briefly, giving CSS time to load.
-no_fouc = true
-# Favicon path (relative to site root).
-icon = "assets/favicon/favicon.ico"
-# CSS stylesheet paths (relative to site root).
-styles = [
-  "assets/styles/tufte.min.css",
-  "assets/styles/tufted.css",
-  "assets/styles/code-block.css",
-  "assets/styles/fontawesome.css",
-]
-# Script entries (relative to site root).
-scripts = []
-# Raw HTML elements to insert into head.
-elements = [
-  '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
-]
+[typst.fonts]
+paths = ["assets/fonts"]
 
-[build.assets]
-# Nested directories (preserve structure).
-# Each directory is copied to `output/{basename}/`.
-# Files inside can be referenced as `/{basename}/path/to/file`.
-# Examples:
-# - `"assets"` -> `/assets/xxx`
-# - `"assets/styles"` -> `/styles/xxx`
-# - `{ dir = "vendor", as = "lib" }` -> `/lib/xxx`
-nested = ["assets"]
-# Flatten files (copy to output root).
-# Each file is copied directly to `output/{basename}`.
-# Examples:
-# - `"assets/CNAME"` -> `/CNAME`
-# - `{ file = "icons/fav.ico", as = "favicon.ico" }` -> `/favicon.ico`
-flatten = ["assets/files/resume.pdf"]
-
-# CSS processor hook (Only tailwind now)
-[build.hooks.css]
-enable = false # Enable Tailwind CSS processing
-# Output asset path (also used as Tailwind input file location)
-# path = ""  # e.g. "assets/style/tailwind.css"
-command = ["tailwindcss"] # e.g. ["npx", "tailwindcss"] if you want
-
-# Development server settings
-[serve]
-# Network interface to bind
-# - `127.0.0.1` (default): localhost only
-# - `0.0.0.0`: all interfaces (LAN accessible)
+[server]
 interface = "127.0.0.1"
-port = 5277             # HTTP port number
-watch = true            # Enable file watcher for live reload
-# Respect path_prefix from site.url during local development
-# - `false` (default): Ignore prefix, access pages at `/`
-# - `true`: Keep prefix, access at `/my-project/`
-respect_prefix = false
+port = 5277
 
-[validate.pages]
-enable = true   # Enable page link validation
-level = "error" # Failure level: error | warn
-
-[validate.assets]
-enable = true   # Enable asset validation
-level = "error" # Failure level: error | warn
+[dev]
+watch = true

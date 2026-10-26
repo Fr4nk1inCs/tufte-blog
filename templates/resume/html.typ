@@ -3,7 +3,7 @@
 #import "./common.typ": contact, make-entries
 
 #let style(name: "Fr4nk1in", contact-infos: (:), location: none, body) = {
-  show: page.with(title: "Resume")
+  show: page
 
   let contact-contents = contact(infos: contact-infos, fa-icon: fa-icon)
 

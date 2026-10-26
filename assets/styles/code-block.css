@@ -1,4 +1,10 @@
+/* Native HTML export separates block rows with newline text nodes. */
+pre > code:has(> .code-line) {
+	white-space: normal;
+}
+
 pre > code > div.code-line {
+	white-space: pre;
 	direction: ltr;
 	unicode-bidi: isolate;
 	display: grid;

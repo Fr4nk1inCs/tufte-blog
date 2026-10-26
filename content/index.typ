@@ -1,6 +1,10 @@
 #import "/templates/page.typ": page
+#import "/templates/metadata.typ": page-meta
 #import "/utils/components.typ" as C
-#import "@tola/pages:0.0.0": all-tags, by-tag, pages
+#import "/utils/pages.typ": all-tags, by-tag, pages
+#import "@tola/source:0.0.0": tola-meta
+
+#tola-meta(page-meta())
 
 #show: page
 
@@ -12,9 +16,9 @@ I'm Fr4nk1in. I'm a second-year graduate student at #link("https://www.ustc.edu.
 
 #let posts = (
   pages()
-    .filter(p => "/posts/" in p.permalink)
-    .filter(p => p.at("date", default: none) != none)
-    .sorted(key: p => p.date)
+    .filter(p => p.source.path.starts-with("posts/"))
+    .filter(p => p.source.meta.date != none)
+    .sorted(key: p => p.source.meta.date)
     .rev()
 )
 #let recent-posts = posts.slice(0, calc.min(5, posts.len()))
@@ -28,7 +32,7 @@ I'm Fr4nk1in. I'm a second-year graduate student at #link("https://www.ustc.edu.
   ..tags.map(
     tag => {
       let count = by-tag(tag).len()
-      link("/tags#" + tag, raw(block: false, tag) + " (" + str(count) + ")")
+      link("/tags/#" + tag, raw(block: false, tag) + " (" + str(count) + ")")
     },
   ),
 )
