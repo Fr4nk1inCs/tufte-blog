@@ -1,6 +1,5 @@
 #import "/templates/post.typ": post
 #import "/templates/metadata.typ": page-meta
-#import "/utils/code.typ": diffed
 #import "/utils/components.typ" as C
 #import "@tola/source:0.0.0": tola-meta
 
@@ -393,52 +392,50 @@ Now, we can profile a model's internals without changing the execution loop. We 
 
 #C.margin-note[`model.py` with `Profiler`]
 
-#diffed(
-  ```python
-  +from dataclasses import dataclass
-  +
-   import torch
+```diff
++from dataclasses import dataclass
++
+ import torch
 
-  +from .profiler import Profiler
-  +
-  +
-  +@dataclass
-  +class Context:
-  +    layer_id: int
-  +    op: str
-  +
-  +
-  +def dump_fn(context: Context, elapsed: float):
-  +    print(f"[Layer {context.layer_id}] {context.op} took {elapsed:.2f} ms")
-  +
-  +
-  +profiler = Profiler(dump_fn)
-  +
++from .profiler import Profiler
++
++
++@dataclass
++class Context:
++    layer_id: int
++    op: str
++
++
++def dump_fn(context: Context, elapsed: float):
++    print(f"[Layer {context.layer_id}] {context.op} took {elapsed:.2f} ms")
++
++
++profiler = Profiler(dump_fn)
++
 
-   class Layer(torch.nn.Module):
-       def __init__(self, layer_id: int):
-           self.relu = torch.nn.ReLU()
+ class Layer(torch.nn.Module):
+     def __init__(self, layer_id: int):
+         self.relu = torch.nn.ReLU()
 
-       def forward(self, x: torch.Tensor) -> torch.Tensor:
-  -        x = x + self.offset
-  -        x = self.relu(x)
-  +        with profiler.time(Context(self.layer_id, "add")):
-  +            x = x + self.offset
-  +        with profiler.time(Context(self.layer_id, "relu")):
-  +            x = self.relu(x)
-           return x
+     def forward(self, x: torch.Tensor) -> torch.Tensor:
+-        x = x + self.offset
+-        x = self.relu(x)
++        with profiler.time(Context(self.layer_id, "add")):
++            x = x + self.offset
++        with profiler.time(Context(self.layer_id, "relu")):
++            x = self.relu(x)
+         return x
 
-   class Model(torch.nn.Module):
-       def __init__(self):
-           super().__init__()
-           self.layers = torch.nn.ModuleList([Layer(i) for i in range(5)])
+ class Model(torch.nn.Module):
+     def __init__(self):
+         super().__init__()
+         self.layers = torch.nn.ModuleList([Layer(i) for i in range(5)])
 
-       def forward(self, x: torch.Tensor) -> torch.Tensor:
-           for layer in self.layers:
-               x = layer(x)
-           return x
-  ```,
-)
+     def forward(self, x: torch.Tensor) -> torch.Tensor:
+         for layer in self.layers:
+             x = layer(x)
+         return x
+```
 
 When you run `execution.py`, you'll see timing information for each layer's operations during the graph replay:
 

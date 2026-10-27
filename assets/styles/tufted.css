@@ -177,6 +177,17 @@ math {
 }
 
 @media (prefers-color-scheme: dark) {
+	/* Match native code highlighting to the site's system-driven dark view. */
+	.tola-code span {
+		color: var(--tola-code-dark-color, var(--tola-code-color, inherit));
+		font-weight: var(--tola-code-dark-weight, var(--tola-code-weight, inherit));
+		font-style: var(--tola-code-dark-style, var(--tola-code-style, inherit));
+		text-decoration-line: var(
+			--tola-code-dark-decoration,
+			var(--tola-code-decoration, inherit)
+		);
+	}
+
 	img[src^="data:image/svg+xml;base64,"] {
 		filter: invert(1) hue-rotate(180deg);
 	}

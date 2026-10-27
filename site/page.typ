@@ -1,5 +1,6 @@
 #import "@tola/address:0.0.0": asset-url, output-url
 #import "@tola/site:0.0.0": site
+#import "@tola/code:0.0.0": code-stylesheet
 #import "/templates/base.typ": base
 #import "seo.typ": head-entries, page-description, page-title
 
@@ -18,7 +19,8 @@
       #html.head[
         #head-entries(page).join()
         #html.link(rel: "icon", href: asset-url("/assets/favicon/favicon.ico"))
-        #for stylesheet in ("tufte.min.css", "tufted.css", "code-block.css", "fontawesome.css") {
+        #code-stylesheet()
+        #for stylesheet in ("tufte.min.css", "tufted.css", "fontawesome.css") {
           html.link(rel: "stylesheet", href: asset-url("/assets/styles/" + stylesheet))
         }
         #html.link(rel: "alternate", type: "application/rss+xml", title: site.title, href: output-url("feed.xml"))

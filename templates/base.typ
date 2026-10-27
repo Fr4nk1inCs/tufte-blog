@@ -1,5 +1,6 @@
 #import "/utils/packages.typ": tufted
 #import "/utils/components.typ": delimiter, fa-icon, full-width, heading-with-id
+#import "@tola/code:0.0.0": code-themes, render-code
 
 #let base(body) = {
   show: tufted.template-notes
@@ -10,7 +11,8 @@
   show terms: html.section
   show heading: heading-with-id
 
-  set raw(theme: "/templates/monochrome.tmTheme")
+  set raw(theme: code-themes.solarized-light)
+  show raw: render-code.with(dark-theme: code-themes.solarized-dark)
   set bibliography(style: "chicago-shortened-notes")
 
   html.header({
